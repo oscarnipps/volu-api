@@ -2,7 +2,7 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get("/user", (req,res) => {
+router.get("/", (req,res) => {
 
     let user = {
         name : "oscar josh",
@@ -17,13 +17,14 @@ router.get("/user", (req,res) => {
 
 //regitser user
 
-//logout user
+//delete user
 
 //login user
 
+//edit user
 
 
-export {router};
+export {router}
 
 
 
