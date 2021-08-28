@@ -1,15 +1,6 @@
-import {Schema ,model} from 'mongoose'
+import mongoose from 'mongoose'
 
-interface User {
-    first_name : string;
-    last_name : string;
-    sex : string;
-    email : string;
-    phone : string;
-    password : string;
-}
-
-const userSchema = new Schema<User>({
+const userSchema = new mongoose.Schema({
     first_name : {
         type : String,
         required : true,
@@ -49,10 +40,6 @@ const userSchema = new Schema<User>({
     }
 });
 
-//add an index on the email field
-userSchema.index({email : 1});
+let User = mongoose.model("User",userSchema);
 
-//create the model
-const UserModel = model<User>("User",userSchema);
-
-export default UserModel;
+export default User;

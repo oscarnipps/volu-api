@@ -1,10 +1,11 @@
-import config from './config'
-import {router as userRouter} from './routes/user.routes'
+import config from './config.js'
+import {router as userRouter} from './routes/user.routes.js'
 import express from 'express'
 import mongoose from 'mongoose'
 
 const app = express();
 
+app.use(express.json());
 app.use('/user',userRouter);
 
 mongoose.connect(config.db_uri,{
@@ -16,7 +17,20 @@ mongoose.connect(config.db_uri,{
     useNewUrlParser: true,
     useCreateIndex: true
 }).then(()=>{
-    console.log(`mongodb conncted with database name :  ${config.db_name}`) 
+    console.log(`mongodb conncted with database name : ${config.db_name}`) 
+})
+
+
+
+//error handler
+app.use((error,req,res,next) => {
+    let statusCode = error.status || 500
+
+    let message = error.message || "internal server error"
+
+    res.status(statusCode).send({
+        "message" : message
+    })
 })
 
 app.listen(config.port, () => {
