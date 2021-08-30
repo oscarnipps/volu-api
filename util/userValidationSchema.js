@@ -8,3 +8,8 @@ export const userRegistration = Joi.object({
     phone : Joi.string().required(),
     password : Joi.string().required()
 });
+
+export const userLogin = Joi.object({
+    email : Joi.string().email().lowercase().required(),
+    password : Joi.string().required()
+});

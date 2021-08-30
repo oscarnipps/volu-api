@@ -5,6 +5,7 @@ dotenv.config()
 const config = {
     port : process.env.PORT ,
     environment : process.env.NODE_ENV,
+    secret_key : process.env.SECRET_KEY,
     db_name : process.env.DB_NAME,
     db_user : process.env.DB_USER,
     db_pasword : process.env.DB_PASSWORD,

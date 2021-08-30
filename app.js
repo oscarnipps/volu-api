@@ -16,11 +16,10 @@ app.use('/user',userRouter);
 //general error handler
 app.use((error,req,res,next) => {
     console.log(error)
+    console.log(error.status)
 
     if(error instanceof Joi.ValidationError){
         error.status = 400
-    }else{
-        error.status = 500
     }
 
     let statusCode = error.status || 500
