@@ -1,34 +1,34 @@
 import config from './config.js'
 import {router as userRouter} from './routes/user.routes.js'
 import express from 'express'
-import mongoose from 'mongoose'
+import morgan from 'morgan'
+import Joi from 'joi'
+import './initMongoDb.js'
 
 const app = express();
 
+app.use(morgan("dev"));
+
 app.use(express.json());
+
 app.use('/user',userRouter);
 
-mongoose.connect(config.db_uri,{
-    dbName : config.db_name,
-    pass : config.db_pasword,
-    user : config.db_user,
-    useFindAndModify: false,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useCreateIndex: true
-}).then(()=>{
-    console.log(`mongodb conncted with database name : ${config.db_name}`) 
-})
-
-
-
-//error handler
+//general error handler
 app.use((error,req,res,next) => {
+    console.log(error)
+
+    if(error instanceof Joi.ValidationError){
+        error.status = 400
+    }else{
+        error.status = 500
+    }
+
     let statusCode = error.status || 500
 
     let message = error.message || "internal server error"
 
     res.status(statusCode).send({
+        "status" : "fail",
         "message" : message
     })
 })

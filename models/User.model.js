@@ -1,21 +1,26 @@
 import mongoose from 'mongoose'
 
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema
+
+const userSchema = Schema({
     first_name : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     last_name : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     sex : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
@@ -23,6 +28,7 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
         trim : true,
+        lowercase : true,
         unique : true
     },
     
