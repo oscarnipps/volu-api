@@ -1,5 +1,6 @@
 import config from './config.js'
 import {router as userRouter} from './routes/user.routes.js'
+import {router as eventCatgeoryRouter} from './routes/eventsCategory.routes.js'
 import express from 'express'
 import morgan from 'morgan'
 import Joi from 'joi'
@@ -13,9 +14,12 @@ app.use(express.json());
 
 app.use('/user',userRouter);
 
+app.use('/event-categories',eventCatgeoryRouter);
+
 //general error handler
 app.use((error,req,res,next) => {
     console.log(error)
+
     console.log(error.status)
 
     if(error instanceof Joi.ValidationError){

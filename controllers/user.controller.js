@@ -1,6 +1,6 @@
 
 import UserModel from '../models/User.model.js'
-import * as schemaValidation from '../util/userValidationSchema.js'
+import * as schemaValidation from '../util/validation/userValidationSchema.js'
 import createError from 'http-errors'
 import jwt from 'jsonwebtoken'
 import config from '../config.js'
