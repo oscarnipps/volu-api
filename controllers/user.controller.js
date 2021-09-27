@@ -1,10 +1,8 @@
 
-import UserModel from '../models/User.model.js'
+import User from '../models/User.model.js'
 import * as schemaValidation from '../util/validation/userValidationSchema.js'
 import * as jwtUtil from '../util/jwtUtil.js'
 import createError from 'http-errors'
-import jwt from 'jsonwebtoken'
-import config from '../config.js'
 
 
 export const registerUser = async (req,res,next) => {
@@ -15,7 +13,7 @@ export const registerUser = async (req,res,next) => {
             throw createError.BadRequest()
         }
 
-        let result = await new UserModel(validatedResult).save()
+        let result = await new User(validatedResult).save()
 
         result.accessToken = await jwtUtil.signToken({ email : result.email})
 
@@ -41,26 +39,29 @@ export const registerUser = async (req,res,next) => {
 export const logInUser = async (req,res,next) => {
     try {
         const validationResult = await schemaValidation.userLogin.validateAsync(req.body)
-
-        if(validationResult.error){
-            throw new createError.BadRequest()
-        }
-
-        console.log(validationResult)
         
-        let options = {
-            expiresIn : '1h',
-            issuer : 'volu',
-            audience : validationResult.email,
+        let {email,password} = validationResult
+
+        let user = await User.findOne({email : email})
+
+        if(user.error){
+            throw new createError.NotFound("user not registered")
         }
 
-        let accessToken = jwt.sign(req.body, config.secret_key, options)
+        const isUserPasswordMatch = await user.isValidPassword(password)
 
-        console.log(accessToken)
+        if(!isUserPasswordMatch){
+            throw createError.Unauthorized("username / password not valid")
+        }
 
-        let response = req.body
+        console.log(user)
 
-        response.accessToken = accessToken
+        user.accessToken = await jwtUtil.signToken({ email : user.email})
+
+        let response = {
+            id : user._id,
+            access_token : user.accessToken,
+        }
 
         res.status(200).send({
             status : "success",
@@ -69,8 +70,21 @@ export const logInUser = async (req,res,next) => {
 
     } catch (error) {
         console.log(error.message)
-
+        
+        if(error.isJoi){
+            return next(createError.BadRequest("invalid username / password"))
+        }
+        
         next(error)
+    }
+}
+
+export const logOutUser = async (req,res,next) => {
+    try {
+        
+
+    } catch (error) {
+        
     }
 }
 

@@ -19,3 +19,17 @@ export const createEvent = async (req,res,next) =>{
         next(error)
     }
 }
+
+export const getEvent = async (req,res,next) =>{
+    try{
+        const result = await Event.find()
+        
+        res.status(201).send({
+            status : "success",
+            data : result
+        });
+
+    }catch(error){
+        next(error)
+    }
+}

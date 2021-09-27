@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
+ 
 import createError from 'http-errors'
 
 const Schema = mongoose.Schema
@@ -79,6 +80,14 @@ userSchema.pre("save" , async function (next) {
     } catch (error) {
         next(error)
     }  
+})
+
+userSchema.method("isValidPassword", async function (password){
+    try {
+       return await bcrypt.compare(password, this.password) 
+    } catch (error) {
+        throw error
+    }
 })
 
 let User = mongoose.model("User",userSchema);
