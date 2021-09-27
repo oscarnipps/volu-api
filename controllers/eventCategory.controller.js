@@ -5,8 +5,6 @@ import * as schemaValidation from '../util/validation/eventCategoryValidationSch
 export const getEventCategories = async (req,res,next) =>{
     try{
         const catgeories = await EventCatgeory.find()
-
-        console.log(`event categories : ${catgeories}`)
         
         res.status(200).send({
             status : "success",
@@ -21,8 +19,6 @@ export const getEventCategories = async (req,res,next) =>{
 export const addEventCategories = async (req,res,next) =>{
     try{
         const validatedResult = await schemaValidation.validateEventCategory.validateAsync(req.body)
-
-        console.log(`event categories : ${validatedResult}`)
 
         if(validatedResult.error){
            throw createError.BadRequest()

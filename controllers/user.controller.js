@@ -1,6 +1,7 @@
 
 import UserModel from '../models/User.model.js'
 import * as schemaValidation from '../util/validation/userValidationSchema.js'
+import * as jwtUtil from '../util/jwtUtil.js'
 import createError from 'http-errors'
 import jwt from 'jsonwebtoken'
 import config from '../config.js'
@@ -10,27 +11,24 @@ export const registerUser = async (req,res,next) => {
     try {
         const validatedResult = await schemaValidation.userRegistration.validateAsync(req.body);
         
-        console.log(validatedResult);
-        
         if(validatedResult.error){
             throw createError.BadRequest()
         }
 
         let result = await new UserModel(validatedResult).save()
 
-        let options = {
-            expiresIn : '1h',
-            issuer : 'volu',
-            audience : validatedResult.email,
+        result.accessToken = await jwtUtil.signToken({ email : result.email})
+
+        const response = {
+            id : result._id,
+            first_name : result.first_name,
+            last_name : result.last_name,
+            access_token : result.accessToken
         }
-
-        let accessToken = jwt.sign(req.body, config.secret_key, options)
-
-        console.log(accessToken)
 
         res.status(201).send({
             status : "success",
-            data : result
+            data : response
         });
 
     } catch (error) {

@@ -1,5 +1,6 @@
 import config from './config.js'
 import {router as userRouter} from './routes/user.routes.js'
+import {router as eventRouter} from './routes/events.routes.js'
 import {router as eventCatgeoryRouter} from './routes/eventsCategory.routes.js'
 import express from 'express'
 import morgan from 'morgan'
@@ -15,6 +16,8 @@ app.use(express.json());
 app.use('/user',userRouter);
 
 app.use('/event-categories',eventCatgeoryRouter);
+
+app.use('/events',eventRouter);
 
 //general error handler
 app.use((error,req,res,next) => {
