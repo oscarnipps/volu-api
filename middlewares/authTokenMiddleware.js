@@ -23,7 +23,7 @@ export const verifyAuthToken = (req,res,next) => {
                     return next(createError.Unauthorized("Access denied , token expired"))
 
                 case 'JsonWebTokenError':
-                    return next(createError.Unauthorized("Invalid token format"))
+                    return next(createError.Unauthorized("Invalid token"))
             
                 default:
                     return next(createError.Unauthorized("Invalid token format"))

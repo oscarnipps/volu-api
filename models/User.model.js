@@ -5,6 +5,36 @@ import createError from 'http-errors'
 
 const Schema = mongoose.Schema
 
+const eventCategorySchema = Schema ({
+    status :  {
+        type : String,
+        required : true,
+        trim : true
+    }
+})
+
+const eventRewardsSchema = Schema ({
+    id : {
+        type :  mongoose.ObjectId,
+        ref : 'EventReward',
+        required : false
+    }
+})
+
+const eventSchema = Schema ({
+    id : {
+        type :  mongoose.ObjectId,
+        ref : 'Event',
+        required : false
+    },
+
+    status :  {
+        type : String,
+        required : false,
+        trim : true
+    }
+})
+
 const userSchema = Schema({
     first_name : {
         type : String,
@@ -42,11 +72,24 @@ const userSchema = Schema({
         unique : true
     },
 
+    profile_image : {
+        type : String,
+        required : false,
+        trim : true,
+    },
+
     password : {
         type : String,
         required : true,
         trim : true
-    }
+    },
+
+    event_categories : [eventCategorySchema],
+
+    events : [eventSchema],
+
+    event_rewards : [eventRewardsSchema],
+
 });
 
 userSchema.pre("save" , async function (next) {
