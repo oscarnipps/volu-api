@@ -17,16 +17,16 @@ export const event = Joi.object({
 
     volunteers : Joi.array().items({
 
-       volunteer_id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
+       id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
 
-       volunteer_status : Joi.string().required().trim().messages({
+       status : Joi.string().required().trim().messages({
            "string.empty" : "volunteer verification status not provided",
            "any.required" : "volunteer verification status required"
         })
 
     }),
 
-    event_status : Joi.string().required().trim().messages({
+    status : Joi.string().required().trim().messages({
             "any.required" : "event status required",
             "string.empty" : "event status not provided"
         }),
@@ -61,7 +61,7 @@ export const event = Joi.object({
         "any.required" : "location required"
     }),
 
-    isPaid : Joi.boolean().required().messages({ "any.required" : "event payment status required"}),
+    is_paid : Joi.boolean().required().messages({ "any.required" : "event payment status required"}),
 
     amount : Joi.number().required().messages({ "any.required" : "volunteer amount required for paid event"})
 })

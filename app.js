@@ -1,7 +1,7 @@
 import config from './config.js'
 import {router as userRouter} from './routes/user.routes.js'
 import {router as eventRouter} from './routes/events.routes.js'
-import {router as eventCatgeoryRouter} from './routes/eventsCategory.routes.js'
+import {router as organizationRouter} from './routes/organization.routes.js'
 import express from 'express'
 import morgan from 'morgan'
 import Joi from 'joi'
@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use('/user',userRouter);
 
-app.use('/event-categories',eventCatgeoryRouter);
+app.use('/organization',organizationRouter);
 
 app.use('/events',eventRouter);
 
@@ -34,7 +34,7 @@ app.use((error,req,res,next) => {
     let message = error.message || "internal server error"
 
     res.status(statusCode).send({
-        "status" : "fail",
+        "status" : "failed",
         "message" : message
     })
 })

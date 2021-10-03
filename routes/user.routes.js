@@ -9,6 +9,8 @@ router.post("/logout", userController.logOutUser)
 
 router.post("/register", userController.registerUser)
 
+router.put("/edit/:id", userController.editUser)
+
 export {router}
 
 

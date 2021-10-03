@@ -14,7 +14,7 @@ export const userRegistration = Joi.object({
     
     phone : Joi.string().required(),
     
-    password : Joi.string().required(),
+    password : Joi.string().trim().required(),
 
     profile_image : Joi.string().allow(null, ""),
 
@@ -29,7 +29,7 @@ export const userRegistration = Joi.object({
          })
     }),
 
-    event_categories : [ Joi.string().required() ],
+    event_categories : [ Joi.string() ],
 
     event_rewards : Joi.array().items({
         reward_id : Joi.objectId().messages({ "string.pattern.name" : "invalid event reward id" }),
@@ -40,5 +40,28 @@ export const userRegistration = Joi.object({
 export const userLogin = Joi.object({
     email : Joi.string().email().lowercase().required(),
     
-    password : Joi.string().required()
+    password : Joi.string().trim().required()
+});
+
+export const userId = Joi.object({
+    id : Joi.objectId().required().messages({ 
+        "string.pattern.name" : "invalid user id" ,
+        "string.empty" : "user id required" ,
+    }),
+});
+
+export const editUser = Joi.object({
+   first_name : Joi.string(),
+
+    last_name : Joi.string(),
+    
+    email : Joi.string().email().lowercase(),
+    
+    phone : Joi.string(),
+    
+    password : Joi.string().trim(),
+
+    profile_image : Joi.string().allow(null, ""),
+
+    event_categories : Joi.array().items(Joi.string()),
 });

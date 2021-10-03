@@ -18,7 +18,7 @@ export const getEventCategories = async (req,res,next) =>{
 
 export const addEventCategories = async (req,res,next) =>{
     try{
-        const validatedResult = await schemaValidation.validateEventCategory.validateAsync(req.body)
+        const validatedResult = await schemaValidation.eventCategory.validateAsync(req.body)
 
         if(validatedResult.error){
            throw createError.BadRequest()

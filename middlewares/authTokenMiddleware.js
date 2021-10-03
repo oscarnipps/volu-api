@@ -32,6 +32,8 @@ export const verifyAuthToken = (req,res,next) => {
        
         //access in route if needed
         req.payload = payload
+
+        console.log(`payload from token : ${payload}`)
         
         next()
     })

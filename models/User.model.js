@@ -1,17 +1,8 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
- 
 import createError from 'http-errors'
 
 const Schema = mongoose.Schema
-
-const eventCategorySchema = Schema ({
-    status :  {
-        type : String,
-        required : true,
-        trim : true
-    }
-})
 
 const eventRewardsSchema = Schema ({
     id : {
@@ -84,7 +75,9 @@ const userSchema = Schema({
         trim : true
     },
 
-    event_categories : [eventCategorySchema],
+    event_categories : {
+        type : Array
+    },
 
     events : [eventSchema],
 
@@ -113,7 +106,7 @@ userSchema.pre("save" , async function (next) {
 
         if(Object.entries(user).length !== 0){
   
-            let message = this.email == user[0].email ? "user with email already exists" : "user with phone number already exists"
+            let message = this.email == user[0].email ? "user email already exists" : "user with phone number already exists"
             
             throw createError.Conflict(message)
         }

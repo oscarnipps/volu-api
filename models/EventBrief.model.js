@@ -21,6 +21,12 @@ const eventBriefSchema = Schema({
         required : true
     },
 
+    brief_type : {
+        type : String,
+        required : true,
+        trim : true
+    },
+
 })
 
 let EventBrief = mongoose.model("EventBrief",eventBriefSchema);

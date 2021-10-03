@@ -43,10 +43,16 @@ const eventSchema = Schema({
         trim : true
     },
 
-    event_reward_id : {
+    award_id : {
         type :  mongoose.ObjectId,
         ref : 'EventRewards',
-        required : true
+        required : false
+    },
+
+    brief_id : {
+        type :  mongoose.ObjectId,
+        ref : 'EventRewards',
+        required : false
     },
 
     volunteers : [volunteersSchema],
@@ -81,7 +87,7 @@ const eventSchema = Schema({
         trim : true
     },
 
-    isPaid : {
+    is_paid : {
         type : Boolean,
         required : true
     },
