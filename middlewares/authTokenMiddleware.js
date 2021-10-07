@@ -5,7 +5,7 @@ import createError from 'http-errors'
 export const verifyAuthToken = (req,res,next) => {
     const accessToken = req.header('Authorization')
 
-    console.log(`access token : ${accessToken}`)
+    // console.log(`access token : ${accessToken}`)
 
     if(!accessToken){
         next(createError.Unauthorized("Unauthorized access denied"))

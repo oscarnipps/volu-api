@@ -29,6 +29,6 @@ const eventBriefSchema = Schema({
 
 })
 
-let EventBrief = mongoose.model("EventBrief",eventBriefSchema);
+let EventBriefs = mongoose.model("EventBriefs",eventBriefSchema);
 
-export default EventBrief;
+export default EventBriefs;

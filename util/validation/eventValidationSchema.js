@@ -13,13 +13,15 @@ export const event = Joi.object({
 
     category_name : Joi.string().required().trim(),
 
-    reward_id : Joi.objectId().messages({ "string.pattern.name" : "invalid reward id"}),
+    award_id : Joi.objectId().messages({ "string.pattern.name" : "invalid reward id"}),
+
+    brief_id : Joi.objectId().messages({ "string.pattern.name" : "invalid brief id"}),
 
     volunteers : Joi.array().items({
 
        id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
 
-       status : Joi.string().required().trim().messages({
+       status : Joi.string().trim().messages({
            "string.empty" : "volunteer verification status not provided",
            "any.required" : "volunteer verification status required"
         })
@@ -65,3 +67,54 @@ export const event = Joi.object({
 
     amount : Joi.number().required().messages({ "any.required" : "volunteer amount required for paid event"})
 })
+
+export const eventId = Joi.object({
+    id : Joi.objectId().required().messages({ 
+        "string.pattern.name" : "invalid event id" ,
+        "string.empty" : "event id required" ,
+    })
+});
+
+export const eventStatus = Joi.object({
+    status : Joi.string().required().messages({   "string.empty" : "event status required" }),
+
+    event_id : Joi.objectId().required().messages({ 
+        "string.pattern.name" : "invalid event id" ,
+        "string.empty" : "event id required" ,
+    })
+});
+
+export const editEvent = Joi.object({
+    name : Joi.string(),
+ 
+    category_name : Joi.string(),
+          
+    status : Joi.string(),
+    
+    volunteers : Joi.array().items({
+
+        id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
+ 
+        status : Joi.string().trim().messages({"string.empty" : "volunteer verification status not provided"})
+ 
+     }),
+
+    status : Joi.string().trim().messages({"any.required" : "event status required"}),
+
+    start_time : Joi.string().trim().messages({ "string.empty" : "event start time not provided"}),
+
+    stop_time : Joi.string().trim().messages({ "string.empty" : "event stop date not provided"  }),
+
+    start_date : Joi.string().trim().messages({"string.empty" : "event start date not provided"}),
+
+    stop_date : Joi.string().trim().messages({ "string.empty" : "event stop date not provided"}),
+
+    address : Joi.string().trim().messages({ "string.empty" : "address not provided"}),
+
+    location : Joi.string().trim().messages({ "string.empty" : "location not provided",}),
+
+    is_paid : Joi.boolean(),
+
+    amount : Joi.number()
+
+ });

@@ -43,6 +43,7 @@ export const userLogin = Joi.object({
     password : Joi.string().trim().required()
 });
 
+//from route parameter
 export const userId = Joi.object({
     id : Joi.objectId().required().messages({ 
         "string.pattern.name" : "invalid user id" ,

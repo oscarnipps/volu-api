@@ -17,3 +17,9 @@ export const organization = Joi.object({
 
     profile_image : Joi.string().allow(null,"")
 })
+
+export const userLogin = Joi.object({
+    email : Joi.string().email().lowercase().required(),
+    
+    password : Joi.string().trim().required()
+});

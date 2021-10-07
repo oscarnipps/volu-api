@@ -74,7 +74,7 @@ organizationSchema.pre("save" , async function (next) {
     try {
         const organization = await Organization.find({$or : [ {email : this.email}, {phone : this.phone} ] })
 
-        if(Object.entries(user).length !== 0){
+        if(Object.entries(organization).length !== 0){
   
             let message = this.email == organization[0].email ? "email already exists" : "phone number already exists"
             

@@ -17,7 +17,7 @@ const volunteersSchema = Schema ({
 })
 
 const eventSchema = Schema({
-    event_name : {
+    name : {
         type : String,
         required : true,
         trim : true
@@ -37,7 +37,7 @@ const eventSchema = Schema({
         },
     },
 
-    event_category_name : {
+    category_name : {
         type : String,
         required : true,
         trim : true
@@ -45,13 +45,13 @@ const eventSchema = Schema({
 
     award_id : {
         type :  mongoose.ObjectId,
-        ref : 'EventRewards',
+        ref : 'EventAwards',
         required : false
     },
 
     brief_id : {
         type :  mongoose.ObjectId,
-        ref : 'EventRewards',
+        ref : 'EventBriefs',
         required : false
     },
 
@@ -60,28 +60,32 @@ const eventSchema = Schema({
     start_time : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     stop_time : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     start_date : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     stop_date : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
-    satus : {
+    status : {
         type : String,
         required : true,
         trim : true
@@ -100,12 +104,14 @@ const eventSchema = Schema({
     address : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     },
 
     location : {
         type : String,
         required : true,
+        lowercase : true,
         trim : true
     }
 })

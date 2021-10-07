@@ -108,7 +108,7 @@ export const editUser = async (req,res,next) => {
 
         console.log("items : " + JSON.stringify( itemsToUpdate))
 
-        let updatedResult = await User.updateOne({_id : validatedUserId.id}, itemsToUpdate)
+        let updatedResult = await User.updateOne( {_id : validatedUserId.id} , {$set : itemsToUpdate} )
 
         res.status(201).send({
             status : "success",

@@ -6,4 +6,6 @@ const router = express.Router()
 
 router.post("/register", organizationController.createOrganization) 
 
+router.post("/login", organizationController.logInUser) 
+
 export {router}
