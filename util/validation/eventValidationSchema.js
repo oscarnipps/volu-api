@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import objectId from 'joi-objectid'
 
- Joi.objectId = objectId(Joi)
+Joi.objectId = objectId(Joi)
 
 export const event = Joi.object({
     name : Joi.string().required().trim(),
@@ -16,17 +16,6 @@ export const event = Joi.object({
     award_id : Joi.objectId().messages({ "string.pattern.name" : "invalid reward id"}),
 
     brief_id : Joi.objectId().messages({ "string.pattern.name" : "invalid brief id"}),
-
-    volunteers : Joi.array().items({
-
-       id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
-
-       status : Joi.string().trim().messages({
-           "string.empty" : "volunteer verification status not provided",
-           "any.required" : "volunteer verification status required"
-        })
-
-    }),
 
     status : Joi.string().required().trim().messages({
             "any.required" : "event status required",
@@ -75,6 +64,30 @@ export const eventId = Joi.object({
     })
 });
 
+
+export const eventVolunteers = Joi.array().items({
+    id : Joi.objectId().messages({ "string.pattern.name" : "invalid volunteer id"}),
+
+    status : Joi.string().trim().messages({
+        "string.empty" : "volunteer verification status not provided",
+        "any.required" : "volunteer verification status required"
+     })
+});
+
+
+export const eventApplication = Joi.object({
+    eventId : Joi.objectId().required().messages({ 
+        "string.pattern.name" : "invalid event id" ,
+        "string.empty" : "event id required" ,
+    }),
+
+    userId : Joi.objectId().required().messages({ 
+        "string.pattern.name" : "invalid user id" ,
+        "string.empty" : "user id required" ,
+    }),
+
+});
+
 export const eventStatus = Joi.object({
     status : Joi.string().required().messages({   "string.empty" : "event status required" }),
 
@@ -88,8 +101,6 @@ export const editEvent = Joi.object({
     name : Joi.string(),
  
     category_name : Joi.string(),
-          
-    status : Joi.string(),
     
     volunteers : Joi.array().items({
 
@@ -98,8 +109,6 @@ export const editEvent = Joi.object({
         status : Joi.string().trim().messages({"string.empty" : "volunteer verification status not provided"})
  
      }),
-
-    status : Joi.string().trim().messages({"any.required" : "event status required"}),
 
     start_time : Joi.string().trim().messages({ "string.empty" : "event start time not provided"}),
 
