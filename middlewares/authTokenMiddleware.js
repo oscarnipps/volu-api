@@ -38,5 +38,4 @@ export const verifyAuthToken = (req,res,next) => {
         next()
     })
 
-
 }
