@@ -4,7 +4,7 @@ import * as schemaValidation from '../util/validation/eventCategoryValidationSch
 
 export const getEventCategories = async (req,res,next) =>{
     try{
-        const catgeories = await EventCatgeory.find()
+        const catgeories = await EventCatgeory.find({}, '-__v')
         
         res.status(200).send({
             status : "success",
